@@ -1,0 +1,27 @@
+-- database: /Users/vivaa/Flask_PWA_Programming_For_The_Web_Task_Template/database/data_source.db
+
+SELECT * FROM `table-name` where Gender is 'Male';
+
+SELECT * FROM `table-name` where Gender is 'Female';
+SELECT * FROM `table-name` where Gender is 'Polygender';
+
+-- Get all unique genders in the table
+SELECT DISTINCT Gender FROM `table-name`;
+
+-- Count the number of records for each gender
+SELECT Gender, COUNT(*) as count FROM `table-name` GROUP BY Gender;
+
+-- Get all records where Age is greater than 30
+SELECT * FROM `table-name` WHERE Age > 30;
+
+-- Get the average age for each gender
+SELECT Gender, AVG(Age) as average_age FROM `table-name` GROUP BY Gender;
+
+-- Find records where the Name starts with 'A'
+SELECT * FROM `table-name` WHERE Name LIKE 'A%';
+
+-- Order all records by Age descending
+SELECT * FROM `table-name` ORDER BY Age DESC;
+
+-- Find the youngest person in the table
+SELECT * FROM `table-name` ORDER BY Age ASC LIMIT 1;

@@ -1,0 +1,5 @@
+-- database: /Users/vivaa/Flask_PWA_Programming_For_The_Web_Task_Template/database/data_source.db
+
+SELECT * FROM `table-name` where Gender is 'Male';
+
+SELECT  emailFROM `table-name` WHERE
