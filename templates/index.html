@@ -18,6 +18,9 @@
         max-width: 1200px;
         margin: auto;
         padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
       .container {
         display: flex;
@@ -124,8 +127,11 @@
   </head>
   <body>
     <header>
-      <nav>
-        <h1 style="color:#106d69; font-size:2rem; letter-spacing:1px;">TipOff</h1>
+      <nav style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <img src="static/images/logo.png.png" alt="TipOff Logo" style="height: 60px; width: 60px;">
+          <h1 style="color:#106d69; font-size:2rem; letter-spacing:1px; margin:0;">TipOff</h1>
+        </div>
         <ul>
           <li><a href="index.html">HOME</a></li>
           <li><a href="games.html">GAMES</a></li>
@@ -143,17 +149,24 @@
           <p style="font-size:1rem; color:#555; margin-bottom:0.5rem;">
             Share your thoughts about the latest games, player moves, or basketball discussions...
           </p>
-          <textarea placeholder="Type your post here..." rows="3"></textarea>
+          <textarea 
+            placeholder="Share your thoughts with the TipOff community..." 
+            rows="3"
+            style="font-family: 'Nunito', Arial, sans-serif; font-size: 1.08rem; color: #222; background: #f7fafc; border: 1px solid #b6c2cf; padding: 0.75rem; border-radius: 8px;"
+          ></textarea>
           <button class="btn">Post</button>
         </section>
 
         <!-- Feed Post -->
         <section class="card">
-          <div class="feed-post-header">
-            <img src="https://i.pravatar.cc/50" alt="User avatar" />
-            <div>
-              <span class="feed-post-username">LeBron Fan</span><br />
-              <span class="feed-post-meta">@lebronfan23 • 2 hours ago</span>
+          <div class="feed-post-header" style="align-items: flex-start;">
+            <img src="static/images/lebronfanpic.png" alt="User avatar" />
+            <div style="display: flex; flex-direction: column;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="feed-post-username" style="font-size:1.1rem;">LeBron Fan</span>
+                <img src="static/images/gamedis.png" alt="Game Discussion" style="height: 32px; width: 90px; object-fit: contain;" />
+              </div>
+              <span class="feed-post-meta" style="margin-top:0.2rem;">@lebronfan23 • 2 hours ago</span>
             </div>
           </div>
           <div class="feed-post-content">
@@ -161,22 +174,27 @@
             The King proving why he's still the best at 39 years old. #LakeShow #GOAT
           </div>
           <img
-            src="https://media.istockphoto.com/id/1218481880/photo/basketball-going-through-hoop.jpg?s=612x612"
+            src="static/images/lebronfanpostpic.png"
             alt="Basketball hoop"
             class="card-image"
             style="width:100%; max-width:400px; height:auto;"
           />
           <div class="feed-post-actions">
             <span>❤️ 247</span>
-            <span>💬 56</span>
-            <span>🔁 18</span>
+            <span>
+              <img src="static/images/comment.png" alt="Comment" style="height: 22px; width: 22px; vertical-align: middle; margin-right: 4px;">
+              56
+            </span>
           </div>
         </section>
       </main>
 
       <aside>
         <div class="card">
-          <h3>Trending Topics</h3>
+          <h3 style="display: flex; align-items: center; gap: 0.5rem;">
+            <img src="static/images/trendingtopic.png" alt="Trending Topic" style="height: 28px; width: 28px;">
+            Trending Topics
+          </h3>
           <ul>
             <li>#LakersVsCeltics</li>
             <li>#TradeDeadline</li>
@@ -187,7 +205,10 @@
         </div>
 
         <div class="card">
-          <h3>Upcoming Games</h3>
+          <h3 style="display: flex; align-items: center; gap: 0.5rem;">
+            <img src="static/images/upcominggames.png" alt="Upcoming Games" style="height: 28px; width: 28px;">
+            Upcoming Games
+          </h3>
           <ul>
             <li>Lakers vs Warriors — Tonight 8PM</li>
             <li>Celtics vs Heat — Tomorrow 7:30PM</li>
@@ -196,7 +217,10 @@
         </div>
 
         <div class="card">
-          <h3>Top Performers</h3>
+          <h3 style="display: flex; align-items: center; gap: 0.5rem;">
+            <img src="static/images/trophy.png" alt="Trophy" style="height: 28px; width: 28px;">
+            Top Performers
+          </h3>
           <ul>
             <li>LeBron James — 29.7 PPG</li>
             <li>Luka Dončić — 32.1 PPG</li>
