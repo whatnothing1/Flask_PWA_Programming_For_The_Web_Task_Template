@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TipOff - Home</title>
     <link rel="stylesheet" href="static/css/style.css" />
-    <style>
+    <style>     
       body {
         background: #e6f0fa;
       }
@@ -50,6 +50,9 @@
         box-sizing: border-box;
         margin: 0;
         background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(80, 80, 160, 0.10), 0 1.5px 6px rgba(80, 80, 160, 0.08);
+        border: 1px solid #e0e6ed;
       }
       .create-post {
         display: flex;
@@ -65,6 +68,23 @@
         font-size: 1rem;
         resize: vertical;
         margin-bottom: 0.5rem;
+      }
+      .btn {
+        background: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.7rem 2rem;
+        font-size: 1.08rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 0.2rem;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 8px rgba(40,167,69,0.12);
+      }
+      .btn:hover {
+        background: #218838;
       }
       .feed-post-header {
         display: flex;
@@ -90,6 +110,15 @@
         font-size: 1.08rem;
         text-align: left;
       }
+      .feed-post-content .hashtag {
+        color: #7c3aed;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .feed-post-content .hashtag:hover {
+        color: #a78bfa;
+      }
       .card-image {
         border-radius: 8px;
         margin-bottom: 0.7rem;
@@ -114,6 +143,10 @@
       .card li {
         margin-bottom: 0.3rem;
       }
+      .card li .hashtag {
+        color: #7c3aed;
+        font-weight: bold;
+      }
       @media (max-width: 900px) {
         .container {
           flex-direction: column;
@@ -134,9 +167,9 @@
           <h1 style="color:#106d69; font-size:2rem; letter-spacing:1px; margin:0;">TipOff</h1>
         </div>
         <ul>
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="games.html">GAMES</a></li>
-          <li><a href="players.html">PLAYERS</a></li>
+          <li><a href="/">HOME</a></li>
+          <li><a href="/games">GAMES</a></li>
+          <li><a href="/players">PLAYERS</a></li>
           <li><a href="#">PROFILE</a></li>
         </ul>
       </nav>
@@ -172,7 +205,8 @@
           </div>
           <div class="feed-post-content">
             LeBron with another clutch performance tonight! 🔥 That fourth quarter was absolutely insane.
-            The King proving why he's still the best at 39 years old. #LakeShow #GOAT
+            The King proving why he's still the best at 39 years old. 
+            <span class="hashtag">#LakeShow</span> <span class="hashtag">#GOAT</span>
           </div>
           <img
             src="static/images/lebronfanpostpic.png"
@@ -197,11 +231,11 @@
             Trending Topics
           </h3>
           <ul>
-            <li>#LakersVsCeltics</li>
-            <li>#TradeDeadline</li>
-            <li>#MVP2024</li>
-            <li>#NBADraft</li>
-            <li>#Playoffs</li>
+            <li><span class="hashtag">#LakersVsCeltics</span></li>
+            <li><span class="hashtag">#TradeDeadline</span></li>
+            <li><span class="hashtag">#MVP2024</span></li>
+            <li><span class="hashtag">#NBADraft</span></li>
+            <li><span class="hashtag">#Playoffs</span></li>
           </ul>
         </div>
 
@@ -223,9 +257,9 @@
             Top Performers
           </h3>
           <ul>
-            <li>LeBron James — 29.7 PPG</li>
-            <li>Luka Dončić — 32.1 PPG</li>
-            <li>Jayson Tatum — 27.8 PPG</li>
+            <li style="color: #e2c20a; font-weight: bold;">LeBron James — 29.7 PPG</li>
+            <li style="color: #e2c20a; font-weight: bold;">Luka Dončić — 32.1 PPG</li>
+            <li style="color: #e2c20a; font-weight: bold;">Jayson Tatum — 27.8 PPG</li>
           </ul>
         </div>
       </aside>

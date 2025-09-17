@@ -1,0 +1,139 @@
+<div class="bg-gray-50 p-8 min-h-screen">
+  <div class="w-full max-w-7xl mx-auto">
+    <!-- Page Header -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900">Player Statistics</h2>
+        <p class="text-sm text-gray-600">NBA 2023-24 Season · Live Metrics</p>
+      </div>
+      <div class="flex space-x-2">
+        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">NBA</span>
+        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">2023-24</span>
+      </div>
+    </div>
+
+    <!-- Filters Row -->
+    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+      <div class="relative flex-1">
+        <input type="text" placeholder="Search players..." 
+          class="rounded-lg shadow-sm pl-10 py-2 border border-gray-300 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+             fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" 
+                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z"></path>
+        </svg>
+      </div>
+      <select class="rounded-lg shadow-sm py-2 px-3 border border-gray-300 focus:ring-2 focus:ring-blue-400">
+        <option>All Positions</option>
+        <option>Guard</option>
+        <option>Forward</option>
+        <option>Center</option>
+      </select>
+      <select class="rounded-lg shadow-sm py-2 px-3 border border-gray-300 focus:ring-2 focus:ring-blue-400">
+        <option>All Teams</option>
+        <option>Mavericks</option>
+        <option>Celtics</option>
+        <option>Nuggets</option>
+      </select>
+    </div>
+
+    <!-- Quick Stats Row -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white shadow-md rounded-xl p-6 text-center">
+        <div class="text-sm text-gray-500 mb-2">Highest PPG</div>
+        <div class="text-2xl font-bold text-blue-700 mb-1">Luka Dončić</div>
+        <div class="text-lg text-gray-700">34.2</div>
+      </div>
+      <div class="bg-white shadow-md rounded-xl p-6 text-center">
+        <div class="text-sm text-gray-500 mb-2">Most Assists</div>
+        <div class="text-2xl font-bold text-green-700 mb-1">Nikola Jokić</div>
+        <div class="text-lg text-gray-700">9.2</div>
+      </div>
+      <div class="bg-white shadow-md rounded-xl p-6 text-center">
+        <div class="text-sm text-gray-500 mb-2">Most Rebounds</div>
+        <div class="text-2xl font-bold text-purple-700 mb-1">Nikola Jokić</div>
+        <div class="text-lg text-gray-700">12.8</div>
+      </div>
+      <div class="bg-white shadow-md rounded-xl p-6 text-center">
+        <div class="text-sm text-gray-500 mb-2">Best Efficiency</div>
+        <div class="text-2xl font-bold text-yellow-700 mb-1">Nikola Jokić</div>
+        <div class="text-lg text-gray-700">32.5</div>
+      </div>
+    </div>
+
+    <!-- Player Stats Table -->
+    <div class="overflow-x-auto rounded-lg shadow bg-white">
+      <table class="min-w-full divide-y divide-gray-200 text-sm">
+        <thead>
+          <tr class="bg-gray-100 text-gray-900">
+            <th class="py-3 px-6 text-left font-semibold">Player</th>
+            <th class="py-3 px-6 font-semibold text-center">GP</th>
+            <th class="py-3 px-6 font-semibold text-center">PTS</th>
+            <th class="py-3 px-6 font-semibold text-center">PPG</th>
+            <th class="py-3 px-6 font-semibold text-center">REB</th>
+            <th class="py-3 px-6 font-semibold text-center">RPG</th>
+            <th class="py-3 px-6 font-semibold text-center">AST</th>
+            <th class="py-3 px-6 font-semibold text-center">APG</th>
+            <th class="py-3 px-6 font-semibold text-center">FG%</th>
+            <th class="py-3 px-6 font-semibold text-center">3P%</th>
+            <th class="py-3 px-6 font-semibold text-center">FT%</th>
+            <th class="py-3 px-6 font-semibold text-center">EFF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hover:bg-gray-50">
+            <td class="py-3 px-6 font-bold text-gray-900 flex items-center space-x-2">
+              <span>Luka Dončić</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">Mavericks</span>
+            </td>
+            <td class="py-3 px-6 text-center">70</td>
+            <td class="py-3 px-6 text-center">2394</td>
+            <td class="py-3 px-6 text-center">34.2</td>
+            <td class="py-3 px-6 text-center">563</td>
+            <td class="py-3 px-6 text-center">8.0</td>
+            <td class="py-3 px-6 text-center">691</td>
+            <td class="py-3 px-6 text-center">9.9</td>
+            <td class="py-3 px-6 text-center">48.7</td>
+            <td class="py-3 px-6 text-center">38.2</td>
+            <td class="py-3 px-6 text-center">78.6</td>
+            <td class="py-3 px-6 text-center">31.7</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="py-3 px-6 font-bold text-gray-900 flex items-center space-x-2">
+              <span>Jayson Tatum</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">Celtics</span>
+            </td>
+            <td class="py-3 px-6 text-center">74</td>
+            <td class="py-3 px-6 text-center">2159</td>
+            <td class="py-3 px-6 text-center">29.2</td>
+            <td class="py-3 px-6 text-center">643</td>
+            <td class="py-3 px-6 text-center">8.7</td>
+            <td class="py-3 px-6 text-center">352</td>
+            <td class="py-3 px-6 text-center">4.8</td>
+            <td class="py-3 px-6 text-center">46.1</td>
+            <td class="py-3 px-6 text-center">36.5</td>
+            <td class="py-3 px-6 text-center">85.0</td>
+            <td class="py-3 px-6 text-center">27.0</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="py-3 px-6 font-bold text-gray-900 flex items-center space-x-2">
+              <span>Nikola Jokić</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">Nuggets</span>
+            </td>
+            <td class="py-3 px-6 text-center">72</td>
+            <td class="py-3 px-6 text-center">1976</td>
+            <td class="py-3 px-6 text-center">27.4</td>
+            <td class="py-3 px-6 text-center">922</td>
+            <td class="py-3 px-6 text-center">12.8</td>
+            <td class="py-3 px-6 text-center">663</td>
+            <td class="py-3 px-6 text-center">9.2</td>
+            <td class="py-3 px-6 text-center">58.1</td>
+            <td class="py-3 px-6 text-center">35.9</td>
+            <td class="py-3 px-6 text-center">82.6</td>
+            <td class="py-3 px-6 text-center">32.5</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

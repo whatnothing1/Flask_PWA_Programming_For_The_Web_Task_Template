@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upcoming Games</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9fafb;
+      color: #222;
+    }
+    .games-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #106d69;
+    }
+    .game-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .game-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .teams {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .team {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .team img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+    .vs {
+      font-weight: bold;
+      background: #106d69;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="games-container">
+    <div class="page-header">
+      <div>
+        <h1>Upcoming Games</h1>
+        <p>Track the hottest matchups and win probabilities</p>
+      </div>
+      <button>View Schedule</button>
+    </div>
+
+    <!-- Game 1: Warriors vs Lakers -->
+    <div class="game-card">
+      <div class="game-meta">
+        <span>Regular Season | HIGH</span>
+        <span>Tonight • 8:00 PM ET | TNT</span>
+      </div>
+      <div class="teams">
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/gs.png" alt="Golden State Warriors">
+          <div>
+            <strong>Golden State</strong><br>
+            Warriors<br>
+            35-25 • 58.3%
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/lal.png" alt="Los Angeles Lakers">
+          <div>
+            <strong>Los Angeles</strong><br>
+            Lakers<br>
+            32-28 • 53.3%
+          </div>
+        </div>
+      </div>
+      <div class="probability" style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+        <div class="team-prob">
+          <img src="static/images/prob.png" alt="Probability"> 61%
+        </div>
+        <div class="team-prob">
+          39% <img src="static/images/prob.png" alt="Probability">
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 2: Celtics vs Heat -->
+    <div class="game-card">
+      <div class="game-meta">
+        <span>Regular Season | MEDIUM</span>
+        <span>Tomorrow • 7:30 PM ET | ESPN</span>
+      </div>
+      <div class="teams">
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/bos.png" alt="Boston Celtics">
+          <div>
+            <strong>Boston</strong><br>
+            Celtics<br>
+            45-15 • 75.0%
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/mia.png" alt="Miami Heat">
+          <div>
+            <strong>Miami</strong><br>
+            Heat<br>
+            38-22 • 63.3%
+          </div>
+        </div>
+      </div>
+      <div class="probability" style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+        <div class="team-prob">
+          <img src="static/images/prob.png" alt="Probability"> 68%
+        </div>
+        <div class="team-prob">
+          32% <img src="static/images/prob.png" alt="Probability">
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 3: Nuggets vs Suns -->
+    <div class="game-card">
+      <div class="game-meta">
+        <span>Regular Season | HIGH</span>
+        <span>Friday • 9:00 PM ET | NBA TV</span>
+      </div>
+      <div class="teams">
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/den.png" alt="Denver Nuggets">
+          <div>
+            <strong>Denver</strong><br>
+            Nuggets<br>
+            42-18 • 70.0%
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/phx.png" alt="Phoenix Suns">
+          <div>
+            <strong>Phoenix</strong><br>
+            Suns<br>
+            36-24 • 60.0%
+          </div>
+        </div>
+      </div>
+      <div class="probability" style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+        <div class="team-prob">
+          <img src="static/images/prob.png" alt="Probability"> 54%
+        </div>
+        <div class="team-prob">
+          46% <img src="static/images/prob.png" alt="Probability">
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 4: Bucks vs 76ers -->
+    <div class="game-card">
+      <div class="game-meta">
+        <span>Regular Season | MEDIUM</span>
+        <span>Saturday • 8:30 PM ET | ABC</span>
+      </div>
+      <div class="teams">
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/mil.png" alt="Milwaukee Bucks">
+          <div>
+            <strong>Milwaukee</strong><br>
+            Bucks<br>
+            40-20 • 66.7%
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/phi.png" alt="Philadelphia 76ers">
+          <div>
+            <strong>Philadelphia</strong><br>
+            76ers<br>
+            39-21 • 65.0%
+          </div>
+        </div>
+      </div>
+      <div class="probability" style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+        <div class="team-prob">
+          <img src="static/images/prob.png" alt="Probability"> 50%
+        </div>
+        <div class="team-prob">
+          50% <img src="static/images/prob.png" alt="Probability">
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 5: Mavericks vs Clippers -->
+    <div class="game-card">
+      <div class="game-meta">
+        <span>Regular Season | LOW</span>
+        <span>Sunday • 3:30 PM ET | NBA TV</span>
+      </div>
+      <div class="teams">
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/dal.png" alt="Dallas Mavericks">
+          <div>
+            <strong>Dallas</strong><br>
+            Mavericks<br>
+            34-29 • 54.0%
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/lac.png" alt="LA Clippers">
+          <div>
+            <strong>LA</strong><br>
+            Clippers<br>
+            36-27 • 57.1%
+          </div>
+        </div>
+      </div>
+      <div class="probability" style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+        <div class="team-prob">
+          <img src="static/images/prob.png" alt="Probability"> 44%
+        </div>
+        <div class="team-prob">
+          56% <img src="static/images/prob.png" alt="Probability">
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 6: Nets vs Knicks -->
+    <div class="game-card">
+      <div class="game-meta">
+        <span>Regular Season | MEDIUM</span>
+        <span>Monday • 7:00 PM ET | YES</span>
+      </div>
+      <div class="teams">
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/bkn.png" alt="Brooklyn Nets">
+          <div>
+            <strong>Brooklyn</strong><br>
+            Nets<br>
+            29-34 • 46.0%
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/nyk.png" alt="New York Knicks">
+          <div>
+            <strong>New York</strong><br>
+            Knicks<br>
+            31-32 • 49.2%
+          </div>
+        </div>
+      </div>
+      <div class="probability" style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+        <div class="team-prob">
+          <img src="static/images/prob.png" alt="Probability"> 39%
+        </div>
+        <div class="team-prob">
+          61% <img src="static/images/prob.png" alt="Probability">
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 7: Grizzlies vs Pelicans -->
+    <div class="game-card">
+      <div class="game-meta">
+        <span>Regular Season | HIGH</span>
+        <span>Tuesday • 8:00 PM ET | TNT</span>
+      </div>
+      <div class="teams">
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/mem.png" alt="Memphis Grizzlies">
+          <div>
+            <strong>Memphis</strong><br>
+            Grizzlies<br>
+            38-23 • 62.3%
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/nop.png" alt="New Orleans Pelicans">
+          <div>
+            <strong>New Orleans</strong><br>
+            Pelicans<br>
+            33-28 • 54.1%
+          </div>
+        </div>
+      </div>
+      <div class="probability" style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+        <div class="team-prob">
+          <img src="static/images/prob.png" alt="Probability"> 59%
+        </div>
+        <div class="team-prob">
+          41% <img src="static/images/prob.png" alt="Probability">
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 8: Bulls vs Raptors -->
+    <div class="game-card">
+      <div class="game-meta">
+        <span>Regular Season | LOW</span>
+        <span>Wednesday • 8:00 PM ET | NBCS</span>
+      </div>
+      <div class="teams">
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/chi.png" alt="Chicago Bulls">
+          <div>
+            <strong>Chicago</strong><br>
+            Bulls<br>
+            27-36 • 42.9%
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/tor.png" alt="Toronto Raptors">
+          <div>
+            <strong>Toronto</strong><br>
+            Raptors<br>
+            30-33 • 47.6%
+          </div>
+        </div>
+      </div>
+      <div class="probability" style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+        <div class="team-prob">
+          <img src="static/images/prob.png" alt="Probability"> 47%
+        </div>
+        <div class="team-prob">
+          53% <img src="static/images/prob.png" alt="Probability">
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 9: Spurs vs Thunder -->
+    <div class="game-card">
+      <div class="game-meta">
+        <span>Regular Season | LOW</span>
+        <span>Thursday • 7:30 PM ET | BSSW</span>
+      </div>
+      <div class="teams">
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/sas.png" alt="San Antonio Spurs">
+          <div>
+            <strong>San Antonio</strong><br>
+            Spurs<br>
+            18-45 • 28.6%
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/okc.png" alt="Oklahoma City Thunder">
+          <div>
+            <strong>Oklahoma City</strong><br>
+            Thunder<br>
+            34-29 • 54.0%
+          </div>
+        </div>
+      </div>
+      <div class="probability" style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+        <div class="team-prob">
+          <img src="static/images/prob.png" alt="Probability"> 22%
+        </div>
+        <div class="team-prob">
+          78% <img src="static/images/prob.png" alt="Probability">
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 10: Kings vs Trail Blazers -->
+    <div class="game-card">
+      <div class="game-meta">
+        <span>Regular Season | MEDIUM</span>
+        <span>Friday • 10:00 PM ET | NBCS</span>
+      </div>
+      <div class="teams">
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/sac.png" alt="Sacramento Kings">
+          <div>
+            <strong>Sacramento</strong><br>
+            Kings<br>
+            37-25 • 59.7%
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team">
+          <img src="https://a.espncdn.com/i/teamlogos/nba/500/por.png" alt="Portland Trail Blazers">
+          <div>
+            <strong>Portland</strong><br>
+            Trail Blazers<br>
+            29-34 • 46.0%
+          </div>
+        </div>
+      </div>
+      <div class="probability" style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+        <div class="team-prob">
+          <img src="static/images/prob.png" alt="Probability"> 63%
+        </div>
+        <div class="team-prob">
+          37% <img src="static/images/prob.png" alt="Probability">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
