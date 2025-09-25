@@ -1,27 +1,37 @@
 -- database: /Users/vivaa/Flask_PWA_Programming_For_The_Web_Task_Template/database/data_source.db
 
-SELECT * FROM `table-name` where Gender is 'Male';
+-- Get all users
+SELECT * FROM user;
 
-SELECT * FROM `table-name` where Gender is 'Female';
-SELECT * FROM `table-name` where Gender is 'Polygender';
+-- Get a user by email
+SELECT * FROM user WHERE email = ?;
 
--- Get all unique genders in the table
-SELECT DISTINCT Gender FROM `table-name`;
+-- Get users by gender (Male)
+SELECT * FROM user WHERE gender = 'Male';
 
--- Count the number of records for each gender
-SELECT Gender, COUNT(*) as count FROM `table-name` GROUP BY Gender;
+-- Get users by gender (Female)
+SELECT * FROM user WHERE gender = 'Female';
 
--- Get all records where Age is greater than 30
-SELECT * FROM `table-name` WHERE Age > 30;
+-- Get users by gender (Other)
+SELECT * FROM user WHERE gender = 'Other';
 
--- Get the average age for each gender
-SELECT Gender, AVG(Age) as average_age FROM `table-name` GROUP BY Gender;
+-- Count users by gender
+SELECT gender, COUNT(*) as count FROM user GROUP BY gender;
 
--- Find records where the Name starts with 'A'
-SELECT * FROM `table-name` WHERE Name LIKE 'A%';
+-- Find users with first name starting with 'A'
+SELECT * FROM user WHERE first_name LIKE 'A%';
 
--- Order all records by Age descending
-SELECT * FROM `table-name` ORDER BY Age DESC;
+-- Order users by last name
+SELECT * FROM user ORDER BY last_name ASC;
 
--- Find the youngest person in the table
-SELECT * FROM `table-name` ORDER BY Age ASC LIMIT 1;
+-- Authenticate a user (match email and password)
+SELECT * FROM user WHERE email = ? AND password = ?;
+
+-- Insert a new user
+INSERT INTO user (first_name, last_name, email, gender, password) VALUES (?, ?, ?, ?, ?);
+
+-- Update a user’s profile (name, gender, password) by email
+UPDATE user SET first_name = ?, last_name = ?, gender = ?, password = ? WHERE email = ?;
+
+-- Delete a user by email
+DELETE FROM user WHERE email = ?;

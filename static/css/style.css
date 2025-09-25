@@ -1,3 +1,4 @@
+/* Google Fonts */
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap");
 
 * {
@@ -7,118 +8,131 @@
 }
 
 body {
-  background: #fdfdfd;
+  background: #f9fafb;
   font-family: "Nunito", sans-serif;
   font-size: 1rem;
+  color: #1f2937; /* gray-800 */
 }
 
-main {
-  max-width: 900px;
-  margin: auto;
-  padding: 0.5rem;
-  text-align: center;
-}
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+/* === LOGIN PAGE STYLES === */
 
-nav img {
-  height: 100px;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-}
-
-nav li {
-  margin-right: 1rem;
-}
-
-nav ul li a {
-  text-decoration-line: none;
-  text-transform: uppercase;
-  color: #393b45;
-}
-
-nav ul li a:hover {
-  color: #14e6dd;
-}
-
-nav h1 {
-  color: #106d69;
-  margin-bottom: 0.5rem;
-}
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  grid-gap: 1rem;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  padding: 1rem 0;
-}
-
-.card {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 17rem;
+.login-page {
   background: #fff;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 10px;
-  margin: auto;
-  overflow: hidden;
+  border-radius: 1rem;
 }
 
-.card-image {
-  width: 100%;
-  height: 15rem;
-  object-fit: cover;
-}
-
-.card-name {
-  color: #222;
+/* Branding */
+.logo {
+  font-size: 2.25rem;
   font-weight: 700;
-  text-transform: capitalize;
-  font-size: 1.1rem;
-  margin-top: 0.5rem;
+  color: #1f2937;
+}
+.tagline {
+  color: #6b7280; /* gray-500 */
 }
 
-.card-about {
-  text-overflow: ellipsis;
-  width: 15rem;
-  white-space: nowrap;
-  overflow: hidden;
-  margin-bottom: 1rem;
+/* Features */
+.features ul li {
+  font-size: 0.95rem;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 0.75rem;
+  transition: background 0.2s ease;
+}
+.features ul li:hover {
+  background: #f3f4f6; /* gray-100 */
 }
 
-.btn {
+/* Stats */
+.community-stats p span:first-child {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+}
+.community-stats p span:last-child {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* Login Card */
+.login-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Tabs */
+.tabs button {
+  transition: all 0.2s ease-in-out;
+}
+.tabs button:hover {
+  background: #e5e7eb;
+}
+.tabs .active {
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+  color: white;
   border: none;
-  background: none;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px rgba(21, 21, 21, 0.1);
-  cursor: pointer;
-  font-size: 1.25rem;
-  margin: 0 1rem;
-  padding: 0.25rem 2rem;
-  transition: all 0.25s ease-in-out;
-  background: hsl(110, 21%, 93%);
-  color: hsl(141, 100%, 22%);
-  margin-bottom: 1rem;
 }
 
-.btn:focus,
-.btn:hover {
-  box-shadow: 1px 1px 2px rgba(21, 21, 21, 0.2);
-  background: hsl(111, 21%, 86%);
+/* Inputs */
+.input-field {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+.input-field:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 
-.about-container {
-  font-size: 1.25rem;
-  margin-top: 2rem;
-  text-align: justify;
-  text-justify: inter-word;
+/* Buttons */
+.tipoff-gradient {
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+}
+.btn-primary {
+  border-radius: 0.5rem;
+  transition: opacity 0.2s ease;
+}
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background: #f9fafb;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  transition: background 0.2s ease;
+}
+.btn-secondary:hover {
+  background: #f3f4f6;
+}
+
+/* Forgot password link */
+.forgot-password a {
+  color: #2563eb;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}
+.forgot-password a:hover {
+  color: #1d4ed8;
+}
+
+/* Error Message */
+.error-message {
+  color: #dc2626; /* red-600 */
+  font-weight: 500;
+  margin-top: -0.5rem;
+}
+
+/* Footer terms */
+.login-card p {
+  font-size: 0.75rem;
+  color: #6b7280;
 }
