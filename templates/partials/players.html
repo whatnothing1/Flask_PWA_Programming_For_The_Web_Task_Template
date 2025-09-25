@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Players</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Players — Top 50</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen p-6">
-  <div class="max-w-6xl mx-auto space-y-6">
-    <!-- Page Header -->
-    <div class="flex flex-col space-y-3">
-      <div class="flex justify-between items-center">
-        <div>
-          <h1 class="text-3xl font-semibold text-gray-900">Player Statistics</h1>
-          <p class="text-gray-600 text-sm">Complete NBA player stats and performance metrics</p>
-        </div>
-        <div class="flex gap-2">
-          <span class="px-2 py-1 text-sm rounded-full border border-gray-300 bg-white shadow-sm">2024-25 Season</span>
-          <span class="px-2 py-1 text-sm rounded-full border border-gray-300 bg-white shadow-sm">Top Performers</span>
-        </div>
+<body class="bg-gray-50 text-gray-900">
+  <div class="max-w-7xl mx-auto p-6 space-y-6">
+    <header class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 class="text-3xl font-semibold">Player Statistics</h1>
+        <p class="text-sm text-gray-600 mt-1">Top 50 NBA players — realistic sample stats (searchable & sortable)</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="px-3 py-1 border rounded-full text-sm bg-white shadow-sm">2024–25 Season</span>
+        <span class="px-3 py-1 border rounded-full text-sm bg-white shadow-sm">Top 50 Players</span>
+      </div>
+    </header>
+
+    <!-- Controls -->
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="relative flex-1">
+        <input id="searchInput" type="search" placeholder="Search players or teams..."
+               class="w-full rounded-xl border border-gray-300 pl-11 pr-4 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+        <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z"/>
+        </svg>
       </div>
 
-      <!-- Search + Filters -->
-      <div class="flex flex-col sm:flex-row gap-3">
-        <div class="relative flex-1">
-          <input id="searchInput" type="text" placeholder="Search players or teams..." 
-            class="w-full rounded-xl border border-gray-300 pl-10 pr-3 py-2 shadow focus:ring-2 focus:ring-blue-500 focus:outline-none transition" />
-          <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"
-            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
-          </svg>
-        </div>
-        <select id="positionFilter" class="rounded-xl border border-gray-300 py-2 px-3 shadow focus:ring-2 focus:ring-blue-500">
+      <div class="flex gap-2">
+        <select id="positionFilter" class="rounded-xl border border-gray-300 px-3 py-2 text-sm shadow-sm">
           <option value="all">All Positions</option>
           <option value="PG">PG</option>
           <option value="SG">SG</option>
@@ -40,8 +38,9 @@
           <option value="PF">PF</option>
           <option value="C">C</option>
         </select>
-        <select id="sortBy" class="rounded-xl border border-gray-300 py-2 px-3 shadow focus:ring-2 focus:ring-blue-500">
-          <option value="ppg">Points (PPG)</option>
+
+        <select id="sortBy" class="rounded-xl border border-gray-300 px-3 py-2 text-sm shadow-sm">
+          <option value="ppg">Sort: Points (PPG)</option>
           <option value="rpg">Rebounds (RPG)</option>
           <option value="apg">Assists (APG)</option>
           <option value="efficiency">Efficiency</option>
@@ -50,98 +49,185 @@
       </div>
     </div>
 
-    <!-- Players Table -->
-    <div class="overflow-x-auto rounded-xl shadow bg-white border border-gray-200">
-      <table class="min-w-full divide-y divide-gray-200 text-sm">
-        <thead class="bg-gray-50">
-          <tr class="text-gray-700 text-xs uppercase">
-            <th class="py-3 px-4 text-left">#</th>
-            <th class="py-3 px-4 text-left">Player</th>
-            <th class="py-3 px-4 text-center">GP</th>
-            <th class="py-3 px-4 text-center">PTS</th>
-            <th class="py-3 px-4 text-center">PPG</th>
-            <th class="py-3 px-4 text-center">REB</th>
-            <th class="py-3 px-4 text-center">RPG</th>
-            <th class="py-3 px-4 text-center">AST</th>
-            <th class="py-3 px-4 text-center">APG</th>
-            <th class="py-3 px-4 text-center">FG%</th>
-            <th class="py-3 px-4 text-center">3P%</th>
-            <th class="py-3 px-4 text-center">FT%</th>
-            <th class="py-3 px-4 text-center">EFF</th>
+    <!-- Table -->
+    <div class="overflow-x-auto bg-white shadow rounded-2xl border border-gray-200">
+      <table class="w-full">
+        <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+          <tr>
+            <th class="p-3 text-center w-12">#</th>
+            <th class="p-3 text-left">Player</th>
+            <th class="p-3 text-center">GP</th>
+            <th class="p-3 text-center">PTS</th>
+            <th class="p-3 text-center">PPG</th>
+            <th class="p-3 text-center">REB</th>
+            <th class="p-3 text-center">RPG</th>
+            <th class="p-3 text-center">AST</th>
+            <th class="p-3 text-center">APG</th>
+            <th class="p-3 text-center">FG%</th>
+            <th class="p-3 text-center">3P%</th>
+            <th class="p-3 text-center">FT%</th>
+            <th class="p-3 text-center">EFF</th>
           </tr>
         </thead>
-        <tbody id="playersTable" class="divide-y divide-gray-100"></tbody>
+        <tbody id="playersTbody" class="text-sm divide-y divide-gray-100"></tbody>
       </table>
     </div>
   </div>
 
   <script>
+    // Utility: escape HTML
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // highlight matching substring (case-insensitive)
+    function highlight(text, q) {
+      if (!q) return escHtml(text);
+      const escapedQ = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const re = new RegExp("(" + escapedQ + ")", "ig");
+      return escHtml(text).replace(re, '<span class="bg-yellow-200 rounded px-0.5">$1</span>');
+    }
+
+    // Debounce
+    function debounce(fn, ms = 150) {
+      let t;
+      return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), ms);
+      };
+    }
+
+    // Full 50-player dataset (made-up realistic stats)
     const players = [
-      {name:"Luka Dončić",team:"DAL",position:"PG",gp:58,pts:1847,ppg:31.8,reb:519,rpg:8.9,ast:574,apg:9.9,fg:48.7,tp:36.2,ft:78.4,eff:33.2,photo:"https://cdn.nba.com/headshots/nba/latest/1040x760/1629029.png"},
-      {name:"Jayson Tatum",team:"BOS",position:"SF",gp:60,pts:1802,ppg:30.0,reb:488,rpg:8.1,ast:288,apg:4.8,fg:47.1,tp:37.6,ft:83.3,eff:31.5,photo:"https://cdn.nba.com/headshots/nba/latest/1040x760/1628369.png"},
-      {name:"Nikola Jokić",team:"DEN",position:"C",gp:59,pts:1593,ppg:27.0,reb:798,rpg:13.5,ast:568,apg:9.6,fg:58.3,tp:35.9,ft:81.7,eff:32.8,photo:"https://cdn.nba.com/headshots/nba/latest/1040x760/203999.png"},
-      {name:"Shai Gilgeous-Alexander",team:"OKC",position:"PG",gp:61,pts:1838,ppg:30.1,reb:341,rpg:5.6,ast:378,apg:6.2,fg:53.5,tp:35.3,ft:87.4,eff:29.9,photo:"https://cdn.nba.com/headshots/nba/latest/1040x760/1628983.png"},
-      {name:"Giannis Antetokounmpo",team:"MIL",position:"PF",gp:57,pts:1710,ppg:30.0,reb:665,rpg:11.7,ast:352,apg:6.2,fg:61.1,tp:27.4,ft:65.7,eff:32.1,photo:"https://cdn.nba.com/headshots/nba/latest/1040x760/203507.png"},
-      {name:"LeBron James",team:"LAL",position:"SF",gp:56,pts:1400,ppg:25.0,reb:420,rpg:7.5,ast:504,apg:9.0,fg:54.0,tp:41.0,ft:75.0,eff:28.5,photo:"https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png"},
-      {name:"Stephen Curry",team:"GSW",position:"PG",gp:59,pts:1562,ppg:26.5,reb:266,rpg:4.5,ast:295,apg:5.0,fg:45.0,tp:40.8,ft:91.5,eff:24.8,photo:"https://cdn.nba.com/headshots/nba/latest/1040x760/201939.png"},
-      {name:"Kevin Durant",team:"PHX",position:"PF",gp:55,pts:1485,ppg:27.0,reb:363,rpg:6.6,ast:275,apg:5.0,fg:52.3,tp:41.3,ft:85.6,eff:26.9,photo:"https://cdn.nba.com/headshots/nba/latest/1040x760/201142.png"},
+      {"name":"Luka Dončić","team":"DAL","teamColor":"#0053BC","position":"PG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1629029.png","gamesPlayed":58,"points":1847,"ppg":31.8,"rebounds":519,"rpg":8.9,"assists":574,"apg":9.9,"fieldGoalPercentage":48.7,"threePointPercentage":36.2,"freeThrowPercentage":78.4,"efficiency":33.2},
+      {"name":"Jayson Tatum","team":"BOS","teamColor":"#007A33","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1628369.png","gamesPlayed":60,"points":1802,"ppg":30.0,"rebounds":488,"rpg":8.1,"assists":288,"apg":4.8,"fieldGoalPercentage":47.1,"threePointPercentage":37.6,"freeThrowPercentage":83.3,"efficiency":31.5},
+      {"name":"Nikola Jokić","team":"DEN","teamColor":"#0E2240","position":"C","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/203999.png","gamesPlayed":59,"points":1593,"ppg":27.0,"rebounds":798,"rpg":13.5,"assists":568,"apg":9.6,"fieldGoalPercentage":58.3,"threePointPercentage":35.9,"freeThrowPercentage":81.7,"efficiency":32.8},
+      {"name":"Shai Gilgeous-Alexander","team":"OKC","teamColor":"#007AC1","position":"PG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1628983.png","gamesPlayed":61,"points":1838,"ppg":30.1,"rebounds":341,"rpg":5.6,"assists":378,"apg":6.2,"fieldGoalPercentage":53.5,"threePointPercentage":35.3,"freeThrowPercentage":87.4,"efficiency":29.9},
+      {"name":"Giannis Antetokounmpo","team":"MIL","teamColor":"#00471B","position":"PF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/203507.png","gamesPlayed":57,"points":1710,"ppg":30.0,"rebounds":665,"rpg":11.7,"assists":352,"apg":6.2,"fieldGoalPercentage":61.1,"threePointPercentage":27.4,"freeThrowPercentage":65.7,"efficiency":32.1},
+      {"name":"LeBron James","team":"LAL","teamColor":"#552583","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png","gamesPlayed":56,"points":1400,"ppg":25.0,"rebounds":420,"rpg":7.5,"assists":504,"apg":9.0,"fieldGoalPercentage":54.0,"threePointPercentage":41.0,"freeThrowPercentage":75.0,"efficiency":28.5},
+      {"name":"Stephen Curry","team":"GSW","teamColor":"#1D428A","position":"PG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/201939.png","gamesPlayed":59,"points":1562,"ppg":26.5,"rebounds":266,"rpg":4.5,"assists":295,"apg":5.0,"fieldGoalPercentage":45.0,"threePointPercentage":40.8,"freeThrowPercentage":91.5,"efficiency":24.8},
+      {"name":"Kevin Durant","team":"PHX","teamColor":"#E56020","position":"PF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/201142.png","gamesPlayed":55,"points":1485,"ppg":27.0,"rebounds":363,"rpg":6.6,"assists":275,"apg":5.0,"fieldGoalPercentage":52.3,"threePointPercentage":41.3,"freeThrowPercentage":85.6,"efficiency":26.9},
+      {"name":"Damian Lillard","team":"MIL","teamColor":"#00471B","position":"PG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/203081.png","gamesPlayed":58,"points":1450,"ppg":25.0,"rebounds":232,"rpg":4.0,"assists":420,"apg":7.2,"fieldGoalPercentage":42.4,"threePointPercentage":35.4,"freeThrowPercentage":92.0,"efficiency":22.8},
+      {"name":"Ja Morant","team":"MEM","teamColor":"#5D76A9","position":"PG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1629630.png","gamesPlayed":52,"points":1300,"ppg":25.0,"rebounds":260,"rpg":5.0,"assists":416,"apg":8.0,"fieldGoalPercentage":47.1,"threePointPercentage":27.5,"freeThrowPercentage":81.3,"efficiency":24.5},
+      {"name":"Anthony Edwards","team":"MIN","teamColor":"#0C2340","position":"SG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1630162.png","gamesPlayed":60,"points":1500,"ppg":25.0,"rebounds":300,"rpg":5.0,"assists":300,"apg":5.0,"fieldGoalPercentage":46.1,"threePointPercentage":35.7,"freeThrowPercentage":83.6,"efficiency":23.2},
+      {"name":"Paolo Banchero","team":"ORL","teamColor":"#0077C0","position":"PF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1631094.png","gamesPlayed":58,"points":1392,"ppg":24.0,"rebounds":348,"rpg":6.0,"assists":290,"apg":5.0,"fieldGoalPercentage":45.5,"threePointPercentage":33.9,"freeThrowPercentage":72.6,"efficiency":21.8},
+      {"name":"Victor Wembanyama","team":"SAS","teamColor":"#C4CED4","position":"C","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1641705.png","gamesPlayed":55,"points":1265,"ppg":23.0,"rebounds":605,"rpg":11.0,"assists":193,"apg":3.5,"fieldGoalPercentage":46.4,"threePointPercentage":32.5,"freeThrowPercentage":79.6,"efficiency":26.2},
+      {"name":"Donovan Mitchell","team":"CLE","teamColor":"#860038","position":"SG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1628978.png","gamesPlayed":59,"points":1357,"ppg":23.0,"rebounds":236,"rpg":4.0,"assists":295,"apg":5.0,"fieldGoalPercentage":46.2,"threePointPercentage":36.8,"freeThrowPercentage":86.5,"efficiency":21.9},
+      {"name":"Devin Booker","team":"PHX","teamColor":"#E56020","position":"SG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1626164.png","gamesPlayed":57,"points":1311,"ppg":23.0,"rebounds":228,"rpg":4.0,"assists":342,"apg":6.0,"fieldGoalPercentage":47.6,"threePointPercentage":36.4,"freeThrowPercentage":88.6,"efficiency":22.1},
+      {"name":"Anthony Davis","team":"LAL","teamColor":"#552583","position":"PF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/203076.png","gamesPlayed":56,"points":1288,"ppg":23.0,"rebounds":672,"rpg":12.0,"assists":224,"apg":4.0,"fieldGoalPercentage":55.6,"threePointPercentage":27.1,"freeThrowPercentage":81.6,"efficiency":26.8},
+      {"name":"Jimmy Butler","team":"MIA","teamColor":"#98002E","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/202710.png","gamesPlayed":54,"points":1188,"ppg":22.0,"rebounds":324,"rpg":6.0,"assists":270,"apg":5.0,"fieldGoalPercentage":49.9,"threePointPercentage":35.0,"freeThrowPercentage":85.8,"efficiency":22.4},
+      {"name":"Kawhi Leonard","team":"LAC","teamColor":"#C8102E","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/202695.png","gamesPlayed":48,"points":1056,"ppg":22.0,"rebounds":288,"rpg":6.0,"assists":192,"apg":4.0,"fieldGoalPercentage":52.5,"threePointPercentage":41.7,"freeThrowPercentage":88.5,"efficiency":23.1},
+      {"name":"Paul George","team":"PHI","teamColor":"#006BB6","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/202331.png","gamesPlayed":52,"points":1144,"ppg":22.0,"rebounds":312,"rpg":6.0,"assists":260,"apg":5.0,"fieldGoalPercentage":47.1,"threePointPercentage":41.3,"freeThrowPercentage":90.7,"efficiency":21.8},
+      {"name":"Joel Embiid","team":"PHI","teamColor":"#006BB6","position":"C","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/203954.png","gamesPlayed":45,"points":990,"ppg":22.0,"rebounds":495,"rpg":11.0,"assists":180,"apg":4.0,"fieldGoalPercentage":52.9,"threePointPercentage":38.8,"freeThrowPercentage":88.3,"efficiency":26.2},
+      {"name":"Tyrese Haliburton","team":"IND","teamColor":"#002D62","position":"PG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1630169.png","gamesPlayed":58,"points":1218,"ppg":21.0,"rebounds":232,"rpg":4.0,"assists":638,"apg":11.0,"fieldGoalPercentage":47.7,"threePointPercentage":36.4,"freeThrowPercentage":85.5,"efficiency":24.1},
+      {"name":"De'Aaron Fox","team":"SAC","teamColor":"#5A2D81","position":"PG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1628368.png","gamesPlayed":60,"points":1260,"ppg":21.0,"rebounds":240,"rpg":4.0,"assists":360,"apg":6.0,"fieldGoalPercentage":46.5,"threePointPercentage":32.4,"freeThrowPercentage":73.8,"efficiency":20.8},
+      {"name":"Lauri Markkanen","team":"UTA","teamColor":"#002B5C","position":"PF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1628374.png","gamesPlayed":58,"points":1218,"ppg":21.0,"rebounds":464,"rpg":8.0,"assists":116,"apg":2.0,"fieldGoalPercentage":48.0,"threePointPercentage":39.9,"freeThrowPercentage":87.0,"efficiency":20.5},
+      {"name":"CJ McCollum","team":"NOP","teamColor":"#0C2340","position":"SG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/203468.png","gamesPlayed":57,"points":1197,"ppg":21.0,"rebounds":228,"rpg":4.0,"assists":285,"apg":5.0,"fieldGoalPercentage":43.2,"threePointPercentage":42.3,"freeThrowPercentage":80.7,"efficiency":19.8},
+      {"name":"Zion Williamson","team":"NOP","teamColor":"#0C2340","position":"PF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1629627.png","gamesPlayed":45,"points":945,"ppg":21.0,"rebounds":315,"rpg":7.0,"assists":225,"apg":5.0,"fieldGoalPercentage":57.0,"threePointPercentage":33.3,"freeThrowPercentage":70.2,"efficiency":22.3},
+      {"name":"Scottie Barnes","team":"TOR","teamColor":"#CE1141","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1630567.png","gamesPlayed":56,"points":1120,"ppg":20.0,"rebounds":448,"rpg":8.0,"assists":336,"apg":6.0,"fieldGoalPercentage":47.2,"threePointPercentage":34.1,"freeThrowPercentage":73.7,"efficiency":21.1},
+      {"name":"Franz Wagner","team":"ORL","teamColor":"#0077C0","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1630532.png","gamesPlayed":59,"points":1180,"ppg":20.0,"rebounds":295,"rpg":5.0,"assists":354,"apg":6.0,"fieldGoalPercentage":47.4,"threePointPercentage":28.1,"freeThrowPercentage":85.0,"efficiency":19.7},
+      {"name":"Alperen Şengün","team":"HOU","teamColor":"#CE1141","position":"C","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1630578.png","gamesPlayed":58,"points":1160,"ppg":20.0,"rebounds":522,"rpg":9.0,"assists":290,"apg":5.0,"fieldGoalPercentage":47.5,"threePointPercentage":25.7,"freeThrowPercentage":69.9,"efficiency":20.8},
+      {"name":"Jalen Green","team":"HOU","teamColor":"#CE1141","position":"SG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1630224.png","gamesPlayed":60,"points":1200,"ppg":20.0,"rebounds":240,"rpg":4.0,"assists":240,"apg":4.0,"fieldGoalPercentage":42.3,"threePointPercentage":33.2,"freeThrowPercentage":79.1,"efficiency":17.8},
+      {"name":"Cade Cunningham","team":"DET","teamColor":"#C8102E","position":"PG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1630595.png","gamesPlayed":58,"points":1160,"ppg":20.0,"rebounds":348,"rpg":6.0,"assists":464,"apg":8.0,"fieldGoalPercentage":44.5,"threePointPercentage":35.8,"freeThrowPercentage":84.1,"efficiency":21.3},
+      {"name":"Tyler Herro","team":"MIA","teamColor":"#98002E","position":"SG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1629639.png","gamesPlayed":56,"points":1120,"ppg":20.0,"rebounds":280,"rpg":5.0,"assists":224,"apg":4.0,"fieldGoalPercentage":43.9,"threePointPercentage":40.6,"freeThrowPercentage":93.4,"efficiency":19.2},
+      {"name":"Jalen Brunson","team":"NYK","teamColor":"#006BB6","position":"PG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1628973.png","gamesPlayed":59,"points":1121,"ppg":19.0,"rebounds":236,"rpg":4.0,"assists":413,"apg":7.0,"fieldGoalPercentage":47.9,"threePointPercentage":40.1,"freeThrowPercentage":84.7,"efficiency":20.4},
+      {"name":"Evan Mobley","team":"CLE","teamColor":"#860038","position":"PF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1630596.png","gamesPlayed":57,"points":1083,"ppg":19.0,"rebounds":570,"rpg":10.0,"assists":171,"apg":3.0,"fieldGoalPercentage":58.8,"threePointPercentage":37.8,"freeThrowPercentage":69.8,"efficiency":21.5},
+      {"name":"Darius Garland","team":"CLE","teamColor":"#860038","position":"PG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1629636.png","gamesPlayed":55,"points":1045,"ppg":19.0,"rebounds":165,"rpg":3.0,"assists":385,"apg":7.0,"fieldGoalPercentage":44.6,"threePointPercentage":37.1,"freeThrowPercentage":83.1,"efficiency":18.7},
+      {"name":"Mikal Bridges","team":"NYK","teamColor":"#006BB6","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1628969.png","gamesPlayed":61,"points":1159,"ppg":19.0,"rebounds":244,"rpg":4.0,"assists":183,"apg":3.0,"fieldGoalPercentage":43.6,"threePointPercentage":31.3,"freeThrowPercentage":81.0,"efficiency":16.8},
+      {"name":"Bam Adebayo","team":"MIA","teamColor":"#98002E","position":"C","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1628389.png","gamesPlayed":59,"points":1121,"ppg":19.0,"rebounds":590,"rpg":10.0,"assists":236,"apg":4.0,"fieldGoalPercentage":55.7,"threePointPercentage":15.4,"freeThrowPercentage":75.4,"efficiency":21.2},
+      {"name":"Jalen Williams","team":"OKC","teamColor":"#007AC1","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1631105.png","gamesPlayed":60,"points":1140,"ppg":19.0,"rebounds":240,"rpg":4.0,"assists":300,"apg":5.0,"fieldGoalPercentage":54.0,"threePointPercentage":42.7,"freeThrowPercentage":87.0,"efficiency":20.8},
+      {"name":"Anfernee Simons","team":"POR","teamColor":"#E03A3E","position":"SG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1629014.png","gamesPlayed":54,"points":1026,"ppg":19.0,"rebounds":162,"rpg":3.0,"assists":270,"apg":5.0,"fieldGoalPercentage":42.6,"threePointPercentage":35.5,"freeThrowPercentage":91.5,"efficiency":18.1},
+      {"name":"Karl-Anthony Towns","team":"NYK","teamColor":"#006BB6","position":"C","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1626157.png","gamesPlayed":55,"points":1045,"ppg":19.0,"rebounds":550,"rpg":10.0,"assists":165,"apg":3.0,"fieldGoalPercentage":52.8,"threePointPercentage":44.3,"freeThrowPercentage":90.0,"efficiency":21.7},
+      {"name":"Domantas Sabonis","team":"SAC","teamColor":"#5A2D81","position":"C","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1627734.png","gamesPlayed":60,"points":1140,"ppg":19.0,"rebounds":780,"rpg":13.0,"assists":480,"apg":8.0,"fieldGoalPercentage":61.5,"threePointPercentage":37.5,"freeThrowPercentage":69.2,"efficiency":24.1},
+      {"name":"RJ Barrett","team":"TOR","teamColor":"#CE1141","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1629628.png","gamesPlayed":58,"points":1102,"ppg":19.0,"rebounds":348,"rpg":6.0,"assists":232,"apg":4.0,"fieldGoalPercentage":55.3,"threePointPercentage":39.2,"freeThrowPercentage":70.6,"efficiency":20.3},
+      {"name":"Michael Porter Jr.","team":"DEN","teamColor":"#0E2240","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1629641.png","gamesPlayed":56,"points":1064,"ppg":19.0,"rebounds":392,"rpg":7.0,"assists":112,"apg":2.0,"fieldGoalPercentage":48.4,"threePointPercentage":39.7,"freeThrowPercentage":83.3,"efficiency":18.9},
+      {"name":"Desmond Bane","team":"MEM","teamColor":"#5D76A9","position":"SG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1630217.png","gamesPlayed":57,"points":1083,"ppg":19.0,"rebounds":285,"rpg":5.0,"assists":285,"apg":5.0,"fieldGoalPercentage":46.8,"threePointPercentage":43.6,"freeThrowPercentage":81.4,"efficiency":19.4},
+      {"name":"OG Anunoby","team":"NYK","teamColor":"#006BB6","position":"SF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1628384.png","gamesPlayed":55,"points":1045,"ppg":19.0,"rebounds":275,"rpg":5.0,"assists":110,"apg":2.0,"fieldGoalPercentage":48.2,"threePointPercentage":40.2,"freeThrowPercentage":71.4,"efficiency":17.3},
+      {"name":"Coby White","team":"CHI","teamColor":"#CE1141","position":"PG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1629632.png","gamesPlayed":59,"points":1121,"ppg":19.0,"rebounds":236,"rpg":4.0,"assists":295,"apg":5.0,"fieldGoalPercentage":45.1,"threePointPercentage":37.6,"freeThrowPercentage":85.4,"efficiency":18.2},
+      {"name":"Nic Claxton","team":"BKN","teamColor":"#000000","position":"C","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1629651.png","gamesPlayed":52,"points":988,"ppg":19.0,"rebounds":468,"rpg":9.0,"assists":156,"apg":3.0,"fieldGoalPercentage":66.6,"threePointPercentage":34.6,"freeThrowPercentage":64.7,"efficiency":19.8},
+      {"name":"Jaren Jackson Jr.","team":"MEM","teamColor":"#5D76A9","position":"PF","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1628991.png","gamesPlayed":54,"points":1026,"ppg":19.0,"rebounds":324,"rpg":6.0,"assists":108,"apg":2.0,"fieldGoalPercentage":50.6,"threePointPercentage":31.6,"freeThrowPercentage":80.0,"efficiency":18.5},
+      {"name":"Cam Thomas","team":"BKN","teamColor":"#000000","position":"SG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1630201.png","gamesPlayed":56,"points":1064,"ppg":19.0,"rebounds":168,"rpg":3.0,"assists":224,"apg":4.0,"fieldGoalPercentage":44.2,"threePointPercentage":38.9,"freeThrowPercentage":86.4,"efficiency":17.6},
+      {"name":"Jordan Poole","team":"WAS","teamColor":"#002B5C","position":"SG","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1629673.png","gamesPlayed":58,"points":1102,"ppg":19.0,"rebounds":232,"rpg":4.0,"assists":261,"apg":4.5,"fieldGoalPercentage":41.3,"threePointPercentage":32.6,"freeThrowPercentage":83.1,"efficiency":16.9},
+      {"name":"Isaiah Hartenstein","team":"OKC","teamColor":"#007AC1","position":"C","photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1628392.png","gamesPlayed":50,"points":950,"ppg":19.0,"rebounds":600,"rpg":12.0,"assists":200,"apg":4.0,"fieldGoalPercentage":64.4,"threePointPercentage":38.5,"freeThrowPercentage":73.3,"efficiency":21.4}
     ];
 
-    function renderPlayers() {
-      const search = document.getElementById("searchInput").value.toLowerCase();
-      const posFilter = document.getElementById("positionFilter").value;
-      const sortBy = document.getElementById("sortBy").value;
+    // Render logic
+    const tb = document.getElementById('playersTbody');
+    const qInput = document.getElementById('searchInput');
+    const posSelect = document.getElementById('positionFilter');
+    const sortSelect = document.getElementById('sortBy');
 
-      let filtered = players.filter(p => 
-        (p.name.toLowerCase().includes(search) || p.team.toLowerCase().includes(search)) &&
-        (posFilter === "all" || p.position === posFilter)
-      );
+    function render() {
+      const q = qInput.value.trim().toLowerCase();
+      const pos = posSelect.value;
+      const sort = sortSelect.value;
 
-      filtered.sort((a,b)=>{
-        if(sortBy==="ppg") return b.ppg - a.ppg;
-        if(sortBy==="rpg") return b.rpg - a.rpg;
-        if(sortBy==="apg") return b.apg - a.apg;
-        if(sortBy==="efficiency") return b.eff - a.eff;
-        if(sortBy==="name") return a.name.localeCompare(b.name);
+      let filtered = players.filter(p => {
+        const matchesQuery = !q || p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q);
+        const matchesPos = pos === 'all' || p.position === pos;
+        return matchesQuery && matchesPos;
       });
 
-      const tbody = document.getElementById("playersTable");
-      tbody.innerHTML = "";
-      filtered.forEach((p,i)=>{
-        tbody.innerHTML += `
+      filtered.sort((a, b) => {
+        switch (sort) {
+          case 'ppg': return b.ppg - a.ppg;
+          case 'rpg': return b.rpg - a.rpg;
+          case 'apg': return (b.apg || 0) - (a.apg || 0);
+          case 'efficiency': return b.efficiency - a.efficiency;
+          case 'name': return a.name.localeCompare(b.name);
+          default: return 0;
+        }
+      });
+
+      tb.innerHTML = filtered.map((p, i) => {
+        const highlightedName = highlight(p.name, q);
+        const highlightedTeam = highlight(p.team, q);
+        const badgeStyle = p.teamColor ? `style="border-color:${p.teamColor};color:${p.teamColor}"` : '';
+        return `
           <tr class="hover:bg-gray-50 transition">
-            <td class="py-3 px-4 text-center">${i+1}</td>
-            <td class="py-3 px-4 flex items-center gap-3">
-              <img src="${p.photo}" alt="${p.name}" class="w-10 h-10 rounded-full object-cover" />
+            <td class="p-3 text-center w-12">${i + 1}</td>
+            <td class="p-3 flex items-center gap-3">
+              <img src="${escHtml(p.photo)}" alt="${escHtml(p.name)}" class="w-10 h-10 rounded-full object-cover flex-shrink-0" />
               <div>
-                <div class="font-medium text-gray-900">${p.name}</div>
-                <div class="text-xs flex gap-1">
-                  <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded">${p.team}</span>
-                  <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded">${p.position}</span>
+                <div class="font-medium text-gray-900">${highlightedName}</div>
+                <div class="mt-1 flex gap-2 items-center text-xs">
+                  <span class="px-1.5 py-0.5 rounded border" ${badgeStyle}>${highlightedTeam}</span>
+                  <span class="px-1.5 py-0.5 rounded bg-gray-100 text-gray-800">${escHtml(p.position)}</span>
                 </div>
               </div>
             </td>
-            <td class="text-center">${p.gp}</td>
-            <td class="text-center">${p.pts}</td>
-            <td class="text-center font-semibold">${p.ppg}</td>
-            <td class="text-center">${p.reb}</td>
-            <td class="text-center">${p.rpg}</td>
-            <td class="text-center">${p.ast}</td>
-            <td class="text-center">${p.apg}</td>
-            <td class="text-center">${p.fg}%</td>
-            <td class="text-center">${p.tp}%</td>
-            <td class="text-center">${p.ft}%</td>
-            <td class="text-center font-semibold">${p.eff}</td>
+            <td class="p-3 text-center">${escHtml(p.gamesPlayed)}</td>
+            <td class="p-3 text-center font-medium">${escHtml(p.points)}</td>
+            <td class="p-3 text-center font-medium">${escHtml(p.ppg)}</td>
+            <td class="p-3 text-center">${escHtml(p.rebounds)}</td>
+            <td class="p-3 text-center">${escHtml(p.rpg)}</td>
+            <td class="p-3 text-center">${escHtml(p.assists || p.ast || '')}</td>
+            <td class="p-3 text-center">${escHtml(p.apg || '')}</td>
+            <td class="p-3 text-center">${escHtml(p.fieldGoalPercentage)}%</td>
+            <td class="p-3 text-center">${escHtml(p.threePointPercentage)}%</td>
+            <td class="p-3 text-center">${escHtml(p.freeThrowPercentage)}%</td>
+            <td class="p-3 text-center font-semibold">${escHtml(p.efficiency)}</td>
           </tr>
         `;
-      });
+      }).join('');
+
+      if (filtered.length === 0) {
+        tb.innerHTML = `<tr><td colspan="13" class="p-6 text-center text-gray-500">No players found for "<strong>${escHtml(qInput.value)}</strong>"</td></tr>`;
+      }
     }
 
-    document.getElementById("searchInput").addEventListener("input", renderPlayers);
-    document.getElementById("positionFilter").addEventListener("change", renderPlayers);
-    document.getElementById("sortBy").addEventListener("change", renderPlayers);
+    // wire up inputs with debounce on search
+    qInput.addEventListener('input', debounce(render, 140));
+    posSelect.addEventListener('change', render);
+    sortSelect.addEventListener('change', render);
 
-    renderPlayers();
+    // initial render
+    render();
   </script>
 </body>
 </html>
