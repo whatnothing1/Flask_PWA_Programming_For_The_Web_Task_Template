@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TipOff - Home</title>
-    <link rel="stylesheet" href="static/css/style.css" />
-    <style>     
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <style>
       body {
         background: #e6f0fa;
       }
       header {
         background: #fff;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
         margin-bottom: 1.5rem;
       }
       nav {
@@ -21,6 +21,29 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+      }
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+        font-weight: 600;
+        font-size: 1.05rem;
+      }
+      nav ul li a {
+        text-decoration: none;
+        color: #2d3748;
+        transition: color 0.2s;
+      }
+      nav ul li a:hover {
+        color: #106d69;
+      }
+      nav ul li a.active {
+        font-weight: 700;
+        color: #106d69;
+        border-bottom: 2px solid #106d69;
+        padding-bottom: 2px;
       }
       .container {
         display: flex;
@@ -51,7 +74,8 @@
         margin: 0;
         background: #fff;
         border-radius: 12px;
-        box-shadow: 0 4px 16px rgba(80, 80, 160, 0.10), 0 1.5px 6px rgba(80, 80, 160, 0.08);
+        box-shadow: 0 4px 16px rgba(80, 80, 160, 0.1),
+          0 1.5px 6px rgba(80, 80, 160, 0.08);
         border: 1px solid #e0e6ed;
       }
       .create-post {
@@ -81,7 +105,7 @@
         transition: background 0.2s;
         margin-top: 0.2rem;
         letter-spacing: 1px;
-        box-shadow: 0 2px 8px rgba(40,167,69,0.12);
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.12);
       }
       .btn:hover {
         background: #218838;
@@ -161,16 +185,24 @@
   </head>
   <body>
     <header>
-      <nav style="display: flex; align-items: center; justify-content: space-between;">
+      <nav>
         <div style="display: flex; align-items: center; gap: 0.5rem;">
-          <img src="static/images/logo.png.png" alt="TipOff Logo" style="height: 60px; width: 60px;">
-          <h1 style="color:#106d69; font-size:2rem; letter-spacing:1px; margin:0;">TipOff</h1>
+          <img
+            src="{{ url_for('static', filename='images/logo.png.png') }}"
+            alt="TipOff Logo"
+            style="height: 60px; width: 60px"
+          />
+          <h1
+            style="color: #106d69; font-size: 2rem; letter-spacing: 1px; margin: 0"
+          >
+            TipOff
+          </h1>
         </div>
         <ul>
-          <li><a href="/">HOME</a></li>
-          <li><a href="/games">GAMES</a></li>
-          <li><a href="/players">PLAYERS</a></li>
-          <li><a href="#">PROFILE</a></li>
+          <li><a href="{{ url_for('index') }}" class="{{ 'active' if request.path == '/' else '' }}">HOME</a></li>
+          <li><a href="{{ url_for('games') }}" class="{{ 'active' if request.path == '/games' else '' }}">GAMES</a></li>
+          <li><a href="{{ url_for('players') }}" class="{{ 'active' if request.path == '/players' else '' }}">PLAYERS</a></li>
+          <li><a href="{{ url_for('profile') }}" class="{{ 'active' if request.path == '/profile' else '' }}">PROFILE</a></li>
         </ul>
       </nav>
     </header>
@@ -179,45 +211,74 @@
       <main>
         <!-- Create Post Card -->
         <section class="card create-post">
-          <h2 style="font-size:1.35rem; margin-bottom:0.2rem;">What's your take on the game?</h2>
-          <p style="font-size:1rem; color:#555; margin-bottom:0.5rem;">
-            Share your thoughts about the latest games, player moves, or basketball discussions...
+          <h2 style="font-size: 1.35rem; margin-bottom: 0.2rem">
+            What's your take on the game?
+          </h2>
+          <p style="font-size: 1rem; color: #555; margin-bottom: 0.5rem">
+            Share your thoughts about the latest games, player moves, or
+            basketball discussions...
           </p>
-          <textarea 
-            placeholder="Share your thoughts with the TipOff community..." 
+          <textarea
+            placeholder="Share your thoughts with the TipOff community..."
             rows="3"
-            style="font-family: 'Nunito', Arial, sans-serif; font-size: 1.08rem; color: #222; background: #f7fafc; border: 1px solid #b6c2cf; padding: 0.75rem; border-radius: 8px;"
+            style="
+              font-family: 'Nunito', Arial, sans-serif;
+              font-size: 1.08rem;
+              color: #222;
+              background: #f7fafc;
+              border: 1px solid #b6c2cf;
+              padding: 0.75rem;
+              border-radius: 8px;
+            "
           ></textarea>
           <button class="btn">Post</button>
         </section>
 
         <!-- Feed Post -->
         <section class="card">
-          <div class="feed-post-header" style="align-items: flex-start;">
-            <img src="static/images/lebronfanpic.png" alt="User avatar" />
-            <div style="display: flex; flex-direction: column;">
-              <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <span class="feed-post-username" style="font-size:1.1rem;">LeBron Fan</span>
-                <img src="static/images/gamedis.png" alt="Game Discussion" style="height: 32px; width: 90px; object-fit: contain;" />
+          <div class="feed-post-header" style="align-items: flex-start">
+            <img src="{{ url_for('static', filename='images/lebronfanpic.png') }}" alt="User avatar" />
+            <div style="display: flex; flex-direction: column">
+              <div style="display: flex; align-items: center; gap: 0.5rem">
+                <span class="feed-post-username" style="font-size: 1.1rem"
+                  >LeBron Fan</span
+                >
+                <img
+                  src="{{ url_for('static', filename='images/gamedis.png') }}"
+                  alt="Game Discussion"
+                  style="height: 32px; width: 90px; object-fit: contain"
+                />
               </div>
-              <span class="feed-post-meta" style="margin-top:0.2rem;">@lebronfan23 • 2 hours ago</span>
+              <span class="feed-post-meta" style="margin-top: 0.2rem"
+                >@lebronfan23 • 2 hours ago</span
+              >
             </div>
           </div>
           <div class="feed-post-content">
-            LeBron with another clutch performance tonight! 🔥 That fourth quarter was absolutely insane.
-            The King proving why he's still the best at 39 years old. 
-            <span class="hashtag">#LakeShow</span> <span class="hashtag">#GOAT</span>
+            LeBron with another clutch performance tonight! 🔥 That fourth
+            quarter was absolutely insane. The King proving why he's still the
+            best at 39 years old. <span class="hashtag">#LakeShow</span>
+            <span class="hashtag">#GOAT</span>
           </div>
           <img
-            src="static/images/lebronfanpostpic.png"
+            src="{{ url_for('static', filename='images/lebronfanpostpic.png') }}"
             alt="Basketball hoop"
             class="card-image"
-            style="width:100%; max-width:400px; height:auto;"
+            style="width: 100%; max-width: 400px; height: auto"
           />
           <div class="feed-post-actions">
             <span>❤️ 247</span>
             <span>
-              <img src="static/images/comment.png" alt="Comment" style="height: 22px; width: 22px; vertical-align: middle; margin-right: 4px;">
+              <img
+                src="{{ url_for('static', filename='images/comment.png') }}"
+                alt="Comment"
+                style="
+                  height: 22px;
+                  width: 22px;
+                  vertical-align: middle;
+                  margin-right: 4px;
+                "
+              />
               56
             </span>
           </div>
@@ -226,8 +287,12 @@
 
       <aside>
         <div class="card">
-          <h3 style="display: flex; align-items: center; gap: 0.5rem;">
-            <img src="static/images/trendingtopic.png" alt="Trending Topic" style="height: 28px; width: 28px;">
+          <h3 style="display: flex; align-items: center; gap: 0.5rem">
+            <img
+              src="{{ url_for('static', filename='images/trendingtopic.png') }}"
+              alt="Trending Topic"
+              style="height: 28px; width: 28px"
+            />
             Trending Topics
           </h3>
           <ul>
@@ -240,8 +305,12 @@
         </div>
 
         <div class="card">
-          <h3 style="display: flex; align-items: center; gap: 0.5rem;">
-            <img src="static/images/upcominggames.png" alt="Upcoming Games" style="height: 28px; width: 28px;">
+          <h3 style="display: flex; align-items: center; gap: 0.5rem">
+            <img
+              src="{{ url_for('static', filename='images/upcominggames.png') }}"
+              alt="Upcoming Games"
+              style="height: 28px; width: 28px"
+            />
             Upcoming Games
           </h3>
           <ul>
@@ -252,14 +321,24 @@
         </div>
 
         <div class="card">
-          <h3 style="display: flex; align-items: center; gap: 0.5rem;">
-            <img src="static/images/trophy.png" alt="Trophy" style="height: 28px; width: 28px;">
+          <h3 style="display: flex; align-items: center; gap: 0.5rem">
+            <img
+              src="{{ url_for('static', filename='images/trophy.png') }}"
+              alt="Trophy"
+              style="height: 28px; width: 28px"
+            />
             Top Performers
           </h3>
           <ul>
-            <li style="color: #e2c20a; font-weight: bold;">LeBron James — 29.7 PPG</li>
-            <li style="color: #e2c20a; font-weight: bold;">Luka Dončić — 32.1 PPG</li>
-            <li style="color: #e2c20a; font-weight: bold;">Jayson Tatum — 27.8 PPG</li>
+            <li style="color: #e2c20a; font-weight: bold">
+              LeBron James — 29.7 PPG
+            </li>
+            <li style="color: #e2c20a; font-weight: bold">
+              Luka Dončić — 32.1 PPG
+            </li>
+            <li style="color: #e2c20a; font-weight: bold">
+              Jayson Tatum — 27.8 PPG
+            </li>
           </ul>
         </div>
       </aside>

@@ -24,6 +24,27 @@ def index():
     data = dbHandler.listExtension()
     return render_template('index.html', content=data)
 
+@app.route('/games')
+def games():
+    """Games page."""
+    if "user_id" not in session:
+        return redirect(url_for('login'))
+    return render_template('games.html')
+
+@app.route('/players')
+def players():
+    """Players page."""
+    if "user_id" not in session:
+        return redirect(url_for('login'))
+    return render_template('players.html')
+
+@app.route('/profile')
+def profile():
+    """Profile page."""
+    if "user_id" not in session:
+        return redirect(url_for('login'))
+    return render_template('profile.html')
+
 @app.route('/login', methods=['GET','POST'])
 def login():
     """Login page and form handling."""
