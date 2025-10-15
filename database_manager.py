@@ -18,6 +18,15 @@ def check_user(email, password):
     conn.close()
     return dict(row) if row else None
 
+def get_user_by_email(email):
+    """Return a user dict by email, else None."""
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM user WHERE email = ?", (email,))
+    row = cur.fetchone()
+    conn.close()
+    return dict(row) if row else None
+
 def list_users():
     conn = get_connection()
     cur = conn.cursor()

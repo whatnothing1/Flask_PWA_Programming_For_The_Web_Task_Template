@@ -1,12 +1,24 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 import database_manager as dbHandler
 import hashlib
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = "super-secret-key"
 
+# ----------------------
+# Profile Pic Upload Config
+# ----------------------
+UPLOAD_FOLDER = 'static/images/profiles'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # ----------------------
 # ROUTES
@@ -51,7 +63,47 @@ def players():
 def profile():
     if "user_id" not in session:
         return redirect(url_for('login'))
-    return render_template('profile.html')
+
+    user_email = session["user_id"]
+    # Fetch user info including profile_pic
+    user = dbHandler.get_user_by_email(user_email)  # Should return dict with keys: first_name, last_name, email, gender, profile_pic
+    if not user:
+        return redirect(url_for('logout'))
+
+    return render_template('profile.html', user=user)
+
+@app.route('/upload_profile_pic', methods=['GET', 'POST'])
+def upload_profile_pic():
+    if "user_id" not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return "No file part", 400
+        file = request.files['file']
+        if file.filename == '':
+            return "No selected file", 400
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+            save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(save_path)
+
+            # Update user in DB
+            conn = dbHandler.get_connection()
+            cur = conn.cursor()
+            cur.execute("UPDATE user SET profile_pic = ? WHERE email = ?", (f'images/profiles/{filename}', session["user_id"]))
+            conn.commit()
+            conn.close()
+
+            return redirect(url_for('profile'))
+
+    return '''
+    <form method="post" enctype="multipart/form-data">
+      <input type="file" name="file" accept="image/*" required>
+      <button type="submit">Upload</button>
+    </form>
+    '''
 
 @app.route('/login', methods=['GET','POST'])
 def login():
