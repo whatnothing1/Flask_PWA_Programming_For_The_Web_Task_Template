@@ -3,13 +3,9 @@ import database_manager as dbHandler
 import hashlib
 
 app = Flask(__name__)
-app.secret_key = "super-secret-key"  # required for sessions
+app.secret_key = "super-secret-key"
 
-# ----------------------
-# HELPERS
-# ----------------------
 def hash_password(password):
-    """Return SHA256 hash of the password."""
     return hashlib.sha256(password.encode()).hexdigest()
 
 # ----------------------
@@ -18,36 +14,47 @@ def hash_password(password):
 @app.route('/')
 @app.route('/index.html')
 def index():
-    """Home page (only for logged in users)."""
     if "user_id" not in session:
         return redirect(url_for('login'))
-    data = dbHandler.listExtension()
-    return render_template('index.html', content=data)
+
+    conn = dbHandler.get_connection()
+    cur = conn.cursor()
+
+    # Get posts
+    cur.execute("SELECT * FROM posts ORDER BY id DESC")
+    posts = [dict(row) for row in cur.fetchall()]
+
+    # Attach likes + comments
+    for post in posts:
+        cur.execute("SELECT COUNT(*) as like_count FROM likes WHERE post_id = ?", (post["id"],))
+        post["like_count"] = cur.fetchone()["like_count"]
+
+        cur.execute("SELECT * FROM comments WHERE post_id = ? ORDER BY created_at ASC", (post["id"],))
+        post["comments"] = [dict(c) for c in cur.fetchall()]
+
+    conn.close()
+    return render_template('index.html', posts=posts)
 
 @app.route('/games')
 def games():
-    """Games page."""
     if "user_id" not in session:
         return redirect(url_for('login'))
     return render_template('games.html')
 
 @app.route('/players')
 def players():
-    """Players page."""
     if "user_id" not in session:
         return redirect(url_for('login'))
     return render_template('players.html')
 
 @app.route('/profile')
 def profile():
-    """Profile page."""
     if "user_id" not in session:
         return redirect(url_for('login'))
     return render_template('profile.html')
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    """Login page and form handling."""
     if request.method == 'POST':
         data = request.get_json()
         email = data.get('email')
@@ -63,7 +70,6 @@ def login():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    """Handle signup form submission."""
     data = request.get_json()
     first_name = data.get('name')
     last_name = data.get('username')
@@ -90,12 +96,61 @@ def signup():
 
 @app.route('/logout')
 def logout():
-    """Logout user and clear session."""
     session.pop("user_id", None)
     return redirect(url_for('login'))
 
 # ----------------------
-# START SERVER
+# POSTS
 # ----------------------
+@app.route('/post', methods=['POST'])
+def create_post():
+    if "user_id" not in session:
+        return jsonify({'success': False, 'message': 'Not logged in'})
+
+    data = request.get_json()
+    content = data.get('content')
+
+    if not content.strip():
+        return jsonify({'success': False, 'message': 'Post cannot be empty'})
+
+    conn = dbHandler.get_connection()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO posts (author, content) VALUES (?, ?)", (session["user_id"], content))
+    conn.commit()
+    conn.close()
+    return jsonify({'success': True})
+
+@app.route('/delete_post/<int:post_id>', methods=['POST'])
+def delete_post(post_id):
+    conn = dbHandler.get_connection()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM posts WHERE id = ?", (post_id,))
+    cur.execute("DELETE FROM likes WHERE post_id = ?", (post_id,))
+    cur.execute("DELETE FROM comments WHERE post_id = ?", (post_id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+@app.route('/like_post/<int:post_id>', methods=['POST'])
+def like_post(post_id):
+    conn = dbHandler.get_connection()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO likes (post_id) VALUES (?)", (post_id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+@app.route('/comment_post/<int:post_id>', methods=['POST'])
+def comment_post(post_id):
+    content = request.form.get("comment")
+    if not content.strip():
+        return redirect(url_for('index'))
+    conn = dbHandler.get_connection()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO comments (post_id, content) VALUES (?, ?)", (post_id, content))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5100)

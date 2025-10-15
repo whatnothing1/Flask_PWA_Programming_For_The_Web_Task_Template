@@ -19,7 +19,6 @@ def check_user(email, password):
     return dict(row) if row else None
 
 def list_users():
-    """Return all users as a list of dicts."""
     conn = get_connection()
     cur = conn.cursor()
     cur.execute("SELECT * FROM user")
@@ -28,5 +27,47 @@ def list_users():
     return [dict(row) for row in rows]
 
 def listExtension():
-    """Example function to return user list."""
     return list_users()
+
+# ----------------------
+# POSTS / LIKES / COMMENTS TABLES
+# ----------------------
+def create_tables():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    # Posts
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS posts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            author TEXT NOT NULL,
+            content TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    # Likes
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS likes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            post_id INTEGER,
+            FOREIGN KEY(post_id) REFERENCES posts(id)
+        )
+    """)
+
+    # Comments
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS comments (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            post_id INTEGER,
+            content TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY(post_id) REFERENCES posts(id)
+        )
+    """)
+
+    conn.commit()
+    conn.close()
+
+# Run on import
+create_tables()

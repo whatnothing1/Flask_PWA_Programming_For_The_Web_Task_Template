@@ -154,6 +154,10 @@
         margin-top: 0.5rem;
         color: #555;
         font-size: 1.1rem;
+        gap: 0.5rem;
+      }
+      .feed-post-actions form {
+        display: inline;
       }
       .card h3 {
         margin-bottom: 0.7rem;
@@ -170,6 +174,25 @@
       .card li .hashtag {
         color: #7c3aed;
         font-weight: bold;
+      }
+      .comment-form {
+        margin-top: 0.5rem;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .comment-form input {
+        flex: 1;
+        padding: 0.4rem;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
+      .comments {
+        margin-top: 0.5rem;
+        font-size: 0.95rem;
+      }
+      .comments li {
+        margin-bottom: 0.3rem;
+        color: #444;
       }
       @media (max-width: 900px) {
         .container {
@@ -218,74 +241,69 @@
             Share your thoughts about the latest games, player moves, or
             basketball discussions...
           </p>
-          <textarea
-            placeholder="Share your thoughts with the TipOff community..."
-            rows="3"
-            style="
-              font-family: 'Nunito', Arial, sans-serif;
-              font-size: 1.08rem;
-              color: #222;
-              background: #f7fafc;
-              border: 1px solid #b6c2cf;
-              padding: 0.75rem;
-              border-radius: 8px;
-            "
-          ></textarea>
-          <button class="btn">Post</button>
+          <form id="postForm">
+            <textarea
+              name="content"
+              placeholder="Share your thoughts with the TipOff community..."
+              rows="3"
+              style="
+                font-family: 'Nunito', Arial, sans-serif;
+                font-size: 1.08rem;
+                color: #222;
+                background: #f7fafc;
+                border: 1px solid #b6c2cf;
+                padding: 0.75rem;
+                border-radius: 8px;
+              "
+            ></textarea>
+            <button type="submit" class="btn">Post</button>
+          </form>
         </section>
 
-        <!-- Feed Post -->
+        <!-- Dynamic Feed -->
+        {% for post in posts %}
         <section class="card">
           <div class="feed-post-header" style="align-items: flex-start">
             <img src="{{ url_for('static', filename='images/lebronfanpic.png') }}" alt="User avatar" />
             <div style="display: flex; flex-direction: column">
               <div style="display: flex; align-items: center; gap: 0.5rem">
-                <span class="feed-post-username" style="font-size: 1.1rem"
-                  >LeBron Fan</span
-                >
-                <img
-                  src="{{ url_for('static', filename='images/gamedis.png') }}"
-                  alt="Game Discussion"
-                  style="height: 32px; width: 90px; object-fit: contain"
-                />
+                <span class="feed-post-username" style="font-size: 1.1rem">{{ post['author'] }}</span>
               </div>
-              <span class="feed-post-meta" style="margin-top: 0.2rem"
-                >@lebronfan23 • 2 hours ago</span
-              >
+              <span class="feed-post-meta" style="margin-top: 0.2rem">@{{ post['author'] }} • {{ post['created_at'] }}</span>
             </div>
           </div>
           <div class="feed-post-content">
-            LeBron with another clutch performance tonight! 🔥 That fourth
-            quarter was absolutely insane. The King proving why he's still the
-            best at 39 years old. <span class="hashtag">#LakeShow</span>
-            <span class="hashtag">#GOAT</span>
+            {{ post['content'] }}
           </div>
-          <img
-            src="{{ url_for('static', filename='images/lebronfanpostpic.png') }}"
-            alt="Basketball hoop"
-            class="card-image"
-            style="width: 100%; max-width: 400px; height: auto"
-          />
+
+          <!-- Actions -->
           <div class="feed-post-actions">
-            <span>❤️ 247</span>
-            <span>
-              <img
-                src="{{ url_for('static', filename='images/comment.png') }}"
-                alt="Comment"
-                style="
-                  height: 22px;
-                  width: 22px;
-                  vertical-align: middle;
-                  margin-right: 4px;
-                "
-              />
-              56
-            </span>
+            <form method="POST" action="{{ url_for('like_post', post_id=post['id']) }}">
+              <button type="submit" class="btn">Like ({{ post['like_count'] }})</button>
+            </form>
+            <form method="POST" action="{{ url_for('delete_post', post_id=post['id']) }}">
+              <button type="submit" class="btn" style="background:#dc3545">Delete</button>
+            </form>
           </div>
+
+          <!-- Comment form -->
+          <form method="POST" action="{{ url_for('comment_post', post_id=post['id']) }}" class="comment-form">
+            <input type="text" name="comment" placeholder="Write a comment..." required />
+            <button type="submit" class="btn">Comment</button>
+          </form>
+
+          <!-- Show comments -->
+          <ul class="comments">
+            {% for comment in post['comments'] %}
+              <li>{{ comment['content'] }} ({{ comment['created_at'] }})</li>
+            {% endfor %}
+          </ul>
         </section>
+        {% endfor %}
       </main>
 
       <aside>
+        <!-- Right sidebar stays same -->
         <div class="card">
           <h3 style="display: flex; align-items: center; gap: 0.5rem">
             <img
@@ -343,5 +361,26 @@
         </div>
       </aside>
     </div>
+
+    <script>
+      document.getElementById("postForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const content = formData.get("content");
+
+        const res = await fetch("{{ url_for('create_post') }}", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          location.reload();
+        } else {
+          alert("Failed to post: " + data.message);
+        }
+      });
+    </script>
   </body>
 </html>
